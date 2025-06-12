@@ -18,83 +18,59 @@ function getMovie() {
     .then(response => {
       console.log(response);
       let movie = response.data;
-      let output = `
+      $("#movie").html(`
       <div class="row">
 
-        ${
-          !movie.poster_path
-            ? `
+        ${!movie.poster_path
+          ? `
       <div class="col-md-4">
          <img class="img-fluid" src="img/no-poster.gif" alt="${movie.title}">
        </div>
 
         `
-            : `
+          : `
           <div class="col-md-4">
-            <img class="img-fluid" src="https://image.tmdb.org/t/p/w500/${
-              movie.poster_path
-            }" alt="${movie.title}">
+            <img class="img-fluid" src="https://image.tmdb.org/t/p/w500/${movie.poster_path}" alt="${movie.title}">
           </div>
-          `
-        }
+          `}
         <div class="col-md-8">
           <h2>${movie.original_title}</h2>
             <ul class="list-group">
-              ${
-                !movie.release_date
-                  ? `
+              ${!movie.release_date
+          ? `
                 <li class="list-group-item"><strong>Released On:</strong>${notAvailable}</li>
                 `
-                  : `
-              <li class="list-group-item"><strong>Released On:</strong> ${
-                movie.release_date
-              }</li>
-              `
-              }
-            ${
-              !movie.vote_average
-                ? `
+          : `
+              <li class="list-group-item"><strong>Released On:</strong> ${movie.release_date}</li>
+              `}
+            ${!movie.vote_average
+          ? `
               <li class="list-group-item"><strong>Rated:</strong>${notAvailable}</li>
               `
-                : `
-            <li class="list-group-item"><strong>Rated:</strong> ${
-              movie.vote_average
-            }</li>
-            `
-            }
-          ${
-            !movie.tagline
-              ? `
+          : `
+            <li class="list-group-item"><strong>Rated:</strong> ${movie.vote_average}</li>
+            `}
+          ${!movie.tagline
+          ? `
             <li class="list-group-item"><strong>Tagline:</strong>${notAvailable}</li>
             `
-              : `
-          <li class="list-group-item"><strong>Tagline:</strong> ${
-            movie.tagline
-          }</li>
-          `
-          }
-        ${
-          !movie.production_companies[0]
-            ? `
+          : `
+          <li class="list-group-item"><strong>Tagline:</strong> ${movie.tagline}</li>
+          `}
+        ${!movie.production_companies[0]
+          ? `
           <li class="list-group-item"><strong>production Companies:</strong>${notAvailable}</li>
           `
-            : `
-        <li class="list-group-item"><strong>production Companies:</strong> ${
-          movie.production_companies[0].name
-        }</li>
-        `
-        }
-      ${
-        !movie.production_countries[0]
+          : `
+        <li class="list-group-item"><strong>production Companies:</strong> ${movie.production_companies[0].name}</li>
+        `}
+      ${!movie.production_countries[0]
           ? `
         <li class="list-group-item"><strong>production Country:</strong>${notAvailable}</li>
         `
           : `
-      <li class="list-group-item"><strong>production Country:</strong> ${
-        movie.production_countries[0].name
-      }</li>
-      `
-      }
+      <li class="list-group-item"><strong>production Country:</strong> ${movie.production_countries[0].name}</li>
+      `}
 
             </ul>
         </div>
@@ -102,34 +78,27 @@ function getMovie() {
       <div class="row">
         <div class="well">
           <h3>Plot</h3>
-            ${
-              !movie.overview
-                ? `
+            ${!movie.overview
+          ? `
             ${notAvailable}
               `
-                : `
+          : `
            ${movie.overview}
-            `
-            }
+            `}
           <hr>
-            <a href ="https://imdb.com/title/${
-              movie.imdb_id
-            }" target ="_blank" class="btn btn-primary">View Imdb</a>
+            <a href ="https://imdb.com/title/${movie.imdb_id}" target ="_blank" class="btn btn-primary">View Imdb</a>
             <a href="movies.html" clas="btn btn-default">Go back to search</a>
         </div>
       </div>
       <br>
       <div class="row">
         <div class="conatiner embed-responsive embed-responsive-4by3">
-        <iframe src="https://videospider.in/getvideo?key=cYuiNXmhxzkgsXDn&video_id=${
-          movie.imdb_id
-        }" style=" width: 100%; height: 100%" allowfullscreen="true" scrolling="no" class="embed-responsive-item" ></iframe>
+        <iframe src="https://videospider.in/getvideo?key=cYuiNXmhxzkgsXDn&video_id=${movie.imdb_id}" style="inline-size: 100%; block-size: 100%" allowfullscreen="true" scrolling="no" class="embed-responsive-item"></iframe>
         </div>
       </div>
 
 
-    `;
-      $("#movie").html(output);
+    `);
     })
     .catch(err => {
       console.log(err);
